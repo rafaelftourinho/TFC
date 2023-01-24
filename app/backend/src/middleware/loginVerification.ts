@@ -7,9 +7,7 @@ const validateLogin: RequestHandler = (req, res, next) => {
     password: Joi.string().min(6).required(),
   }).messages({
     'string.min': 'Incorrect email or password',
-    // 'string.required': 'All fields must be filled',
-    'email.required': 'All fields must be filled',
-    'password.required': 'All fields must be filled',
+    'string.empty': 'All fields must be filled',
   }).required();
 
   const { error } = loginSchema.validate(req.body);
