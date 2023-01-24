@@ -13,6 +13,7 @@ export default class JWT {
       expiresIn: 60 * 60 * 24 * 7,
       algorithm: 'HS256',
     });
+
     return token;
   }
 
@@ -24,5 +25,3 @@ export default class JWT {
     }
   }
 }
-
-// export const { verifyToken, createToken } = new JWT();

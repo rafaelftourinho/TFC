@@ -22,8 +22,7 @@ export default class UserController {
     }
   }
 
-  public async validate(req: Request, res: Response) {
-    const validator = await this.service.validate(req.body.user);
-    return res.status(200).json(validator);
-  }
+  public validate = (req: Request, res: Response) =>
+    res.status(200).json({ role: req.body.user.role })
+  ;
 }
