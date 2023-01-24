@@ -14,10 +14,9 @@ export default class UserService {
     const user = await this.model.findOne({
       where: { email },
     });
-    const data = { email, role: user?.role };
 
     if (user && Bcrypt.compare(password, user.password)) {
-      const token = jwt.createToken(data);
+      const token = jwt.createToken({ email, role: user?.role });
       return token;
     }
     return null;
