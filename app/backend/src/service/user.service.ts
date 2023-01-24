@@ -5,10 +5,7 @@ import Bcrypt from '../auth/Bcript';
 const jwt = new JWT();
 
 export default class UserService {
-  public model;
-  constructor() {
-    this.model = UserModel;
-  }
+  public model = UserModel;
 
   public async login(email: string, password: string): Promise<string | null> {
     const user = await this.model.findOne({
