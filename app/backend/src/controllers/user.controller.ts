@@ -23,11 +23,11 @@ export default class UserController {
     }
   }
 
-  public async validate(req: Request, res: Response) {
-    const { user } = req.headers;
-    const validator = await this.service.validate(user);
-    return res.status(200).json(validator);
-  }
+//   public async validate(req: Request, res: Response) {
+//     const { user } = req.headers;
+//     const validator = await this.service.validate(user);
+//     return res.status(200).json(validator);
+//   }
 }
 
 export const { login } = new UserController();
