@@ -3,5 +3,5 @@ export default interface LoginType {
   password?: string;
   id?: number;
   username?: string;
-  role?: string
+  role?: string;
 }

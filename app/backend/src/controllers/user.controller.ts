@@ -13,7 +13,6 @@ export default class UserController {
 
     try {
       const user = await this.service.login(email, password);
-      console.log(user);
       if (user === null) {
         return res.status(401).json({ message: 'Incorrect email or password' });
       }
@@ -23,11 +22,8 @@ export default class UserController {
     }
   }
 
-//   public async validate(req: Request, res: Response) {
-//     const { user } = req.headers;
-//     const validator = await this.service.validate(user);
-//     return res.status(200).json(validator);
-//   }
+  public async validate(req: Request, res: Response) {
+    const validator = await this.service.validate(req.body.user);
+    return res.status(200).json(validator);
+  }
 }
-
-export const { login } = new UserController();

@@ -1,6 +1,4 @@
-// import { CreateOptions, Model } from 'sequelize';
 import UserModel from '../database/models/User';
-// import { createToken } from '../auth/jwt';
 import JWT from '../auth/jwt';
 import Bcrypt from '../auth/Bcript';
 import LoginType from '../interfaces/LoginType';
@@ -25,10 +23,11 @@ export default class UserService {
     return null;
   }
 
-  public async validate(user: LoginType): Promise<string | null | object> {
+  public async validate(user: LoginType): Promise<string | object> {
     const userValidate = await this.model.findOne({
       where: { email: user.email },
-    });
-    return { role: userValidate?.role };
+    }) as LoginType;
+
+    return { role: userValidate.role };
   }
 }
