@@ -24,16 +24,23 @@ export default class MatchService {
   }
 
   public async createMatch(match: IMatches) {
-    const { homeTeamId, awayTeamId, homeTeamGoals, awayTeamGoals } = match;
-
     const createdMatch = await this.model.create({
-      homeTeamId,
-      awayTeamId,
-      homeTeamGoals,
-      awayTeamGoals,
+      ...match,
       inProgress: true,
     });
 
     return createdMatch;
+  }
+
+  public async updateMatch(match: IMatches, id: string) {
+    const updatedMatch = await this.model.update({
+      ...match,
+      inProgress: false,
+    }, {
+      where: {
+        id,
+      },
+    });
+    return updatedMatch;
   }
 }
