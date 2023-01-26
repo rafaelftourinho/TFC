@@ -11,13 +11,11 @@ const verifyAuthorization: RequestHandler = (req, res, next) => {
   }
 
   const token = jwt.verifyToken(authorization);
-  console.log(token);
 
   if (!token) {
-    return res.status(401).send({ message: 'Expired or invalid token' });
+    return res.status(401).send({ message: 'Token must be a valid token' });
   }
   req.body.user = token;
-  console.log(req.body.user);
   next();
 };
 

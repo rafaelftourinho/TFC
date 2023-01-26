@@ -4,4 +4,6 @@ export default interface IMatches {
   awayTeamId: number,
   homeTeamGoals: number,
   awayTeamGoals: number,
+  type?: number,
+  message?: string,
 }

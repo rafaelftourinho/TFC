@@ -12,7 +12,10 @@ export default class MatchController {
 
   public async createMatch(req: Request, res: Response) {
     const createdMatch = await this.service.createMatch(req.body);
-    return res.status(201).json(createdMatch);
+    const { type, message, data } = createdMatch;
+
+    if (message) return res.status(type).json({ message });
+    return res.status(type).json(data);
   }
 
   public async updateMatch(req: Request, res: Response) {
