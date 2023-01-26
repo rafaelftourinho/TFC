@@ -18,8 +18,14 @@ export default class MatchController {
     return res.status(type).json(data);
   }
 
-  public async updateMatch(req: Request, res: Response) {
-    await this.service.updateMatch(req.body, req.params.id);
+  public async updateMatchToFinish(req: Request, res: Response) {
+    await this.service.updateMatchToFinish(req.body, req.params.id);
     return res.status(200).json({ message: 'Finished' });
+  }
+
+  public async updatedMatchGoals(req: Request, res: Response) {
+    const updatedMatch = await this.service.updateMatchGoals(req.body, req.params.id);
+    const { type, message } = updatedMatch;
+    return res.status(type).json({ message });
   }
 }

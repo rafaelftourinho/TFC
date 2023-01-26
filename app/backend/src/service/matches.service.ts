@@ -39,13 +39,13 @@ export default class MatchService {
     }
 
     if (match.homeTeamId === match.awayTeamId) {
-      return { type: 404, message: 'It is not possible to create a match with two equal teams' };
+      return { type: 422, message: 'It is not possible to create a match with two equal teams' };
     }
 
     return { type: 201, data: createdMatch };
   }
 
-  public async updateMatch(match: IMatches, id: string) {
+  public async updateMatchToFinish(match: IMatches, id: string) {
     const updatedMatch = await this.model.update({
       ...match,
       inProgress: false,
@@ -55,5 +55,22 @@ export default class MatchService {
       },
     });
     return updatedMatch;
+  }
+
+  public async updateMatchGoals(match: IMatches, id: string) {
+    const { homeTeamGoals, awayTeamGoals } = match;
+
+    this.model.update(
+      {
+        homeTeamGoals,
+        awayTeamGoals,
+      },
+      {
+        where: {
+          id,
+        },
+      },
+    );
+    return { type: 200, message: 'Match is updated' };
   }
 }
