@@ -1,3 +1,4 @@
+import IMatches from '../interfaces/MatchesType';
 import MatchModel from '../database/models/Match';
 import TeamModel from '../database/models/Team';
 
@@ -20,5 +21,19 @@ export default class MatchService {
       return matches.filter((match) => match.inProgress === false);
     }
     return matches;
+  }
+
+  public async createMatch(match: IMatches) {
+    const { homeTeamId, awayTeamId, homeTeamGoals, awayTeamGoals } = match;
+
+    const createdMatch = await this.model.create({
+      homeTeamId,
+      awayTeamId,
+      homeTeamGoals,
+      awayTeamGoals,
+      inProgress: true,
+    });
+
+    return createdMatch;
   }
 }
