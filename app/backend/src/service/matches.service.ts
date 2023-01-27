@@ -26,11 +26,6 @@ export default class MatchService {
   }
 
   public async createMatch(match: IMatches) {
-    const createdMatch = await this.model.create({
-      ...match,
-      inProgress: true,
-    });
-
     const existedHomeTeam = await this.teamS.getTeamId(match.homeTeamId);
     const existedAwayTeam = await this.teamS.getTeamId(match.awayTeamId);
 
@@ -41,6 +36,11 @@ export default class MatchService {
     if (match.homeTeamId === match.awayTeamId) {
       return { type: 422, message: 'It is not possible to create a match with two equal teams' };
     }
+
+    const createdMatch = await this.model.create({
+      ...match,
+      inProgress: true,
+    });
 
     return { type: 201, data: createdMatch };
   }
