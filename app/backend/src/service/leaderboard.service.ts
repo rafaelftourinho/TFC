@@ -24,4 +24,33 @@ export default class LeaderboardServices {
         || b.goalsFavor - a.goalsFavor
         || b.goalsOwn - a.goalsOwn));
   }
+
+  public async getAwayLeaderboard() {
+    return this.model.findAll({
+      include: [
+        {
+          association: 'awayMatchs',
+          attributes: ['homeTeamGoals', 'awayTeamGoals'],
+          where: {
+            inProgress: false,
+          },
+        },
+      ],
+    })
+      .then((r) => r.map((team) => team.get({ plain: true })))
+      .then((teams) => teams.map((team) => new TeamStatistics(team)))
+      .then((team) => team
+        .sort((c, b) => b.totalPoints - c.totalPoints
+        || b.goalsBalance - c.goalsBalance
+        || b.goalsFavor - c.goalsFavor
+        || b.goalsOwn - c.goalsOwn));
+  }
+
+  // public async getHomeLeaderboard() {
+  //   return this.getLeaderboard();
+  // }
+
+  // public async getAwayLeaderboard() {
+  //   return this.getLeaderboard();
+  // }
 }
