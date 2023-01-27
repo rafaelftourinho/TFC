@@ -37,6 +37,7 @@ export default class TeamStatistics {
   }
 
   public TeamStatistics(team: TeamType) {
+    console.log(team);
     if (team.homeMatchs) {
       this.totalGames += team.homeMatchs.length;
       this.goals(team.homeMatchs, true);

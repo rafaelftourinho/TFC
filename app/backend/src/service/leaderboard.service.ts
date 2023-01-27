@@ -4,17 +4,17 @@ import TeamStatistics from '../utils/teams';
 export default class LeaderboardServices {
   public model = TeamModel;
 
-  public async getHomeLeaderboard() {
+  public async getLeaderboard() {
     return this.model.findAll({
       include: [
         {
           association: 'homeMatchs',
           attributes: ['homeTeamGoals', 'awayTeamGoals'],
-          where: {
-            inProgress: false,
-          },
-        },
-      ],
+          where: { inProgress: false } },
+        {
+          association: 'awayMatchs',
+          attributes: ['homeTeamGoals', 'awayTeamGoals'],
+          where: { inProgress: false } }],
     })
       .then((r) => r.map((team) => team.get({ plain: true })))
       .then((teams) => teams.map((team) => new TeamStatistics(team)))
@@ -46,11 +46,24 @@ export default class LeaderboardServices {
         || b.goalsOwn - c.goalsOwn));
   }
 
-  // public async getHomeLeaderboard() {
-  //   return this.getLeaderboard();
-  // }
-
-  // public async getAwayLeaderboard() {
-  //   return this.getLeaderboard();
-  // }
+  public async getHomeLeaderboard() {
+    return this.model.findAll({
+      include: [
+        {
+          association: 'homeMatchs',
+          attributes: ['homeTeamGoals', 'awayTeamGoals'],
+          where: {
+            inProgress: false,
+          },
+        },
+      ],
+    })
+      .then((r) => r.map((team) => team.get({ plain: true })))
+      .then((teams) => teams.map((team) => new TeamStatistics(team)))
+      .then((team) => team
+        .sort((d, b) => b.totalPoints - d.totalPoints
+        || b.goalsBalance - d.goalsBalance
+        || b.goalsFavor - d.goalsFavor
+        || b.goalsOwn - d.goalsOwn));
+  }
 }
