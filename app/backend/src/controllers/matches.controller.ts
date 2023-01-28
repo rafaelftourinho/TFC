@@ -19,7 +19,7 @@ export default class MatchController {
   }
 
   public async updateMatchToFinish(req: Request, res: Response) {
-    await this.service.updateMatchToFinish(req.body, req.params.id);
+    await this.service.updateMatchToFinish(req.params.id);
     return res.status(200).json({ message: 'Finished' });
   }
 

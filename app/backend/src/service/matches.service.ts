@@ -45,9 +45,8 @@ export default class MatchService {
     return { type: 201, data: createdMatch };
   }
 
-  public async updateMatchToFinish(match: IMatches, id: string) {
+  public async updateMatchToFinish(id: string) {
     const updatedMatch = await this.model.update({
-      ...match,
       inProgress: false,
     }, {
       where: {

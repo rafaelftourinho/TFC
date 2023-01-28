@@ -1,5 +1,5 @@
 import TeamModel from '../database/models/Team';
-import TeamStatistics from '../utils/teams';
+import TeamStatistics from '../utils/LeaderboardStatitics';
 
 export default class LeaderboardServices {
   public model = TeamModel;
