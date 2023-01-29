@@ -57,4 +57,20 @@ const matches = [
   }
 ]
 
+export const newMatch = {
+  "homeTeamId": 10,
+  "homeTeamGoals": 2,
+  "awayTeamId": 1,
+  "awayTeamGoals": 1,
+}
+
+export const newCreatedMatch = { 
+  "id": 12,
+  "homeTeamId": 10,
+  "homeTeamGoals": 2,
+  "awayTeamId": 1,
+  "awayTeamGoals": 1,
+  "inProgress": true
+}
+
 export default matches;
